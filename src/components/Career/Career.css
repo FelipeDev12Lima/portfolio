@@ -1,0 +1,255 @@
+.career .section-title {
+  margin-bottom: clamp(40px, 6vw, 80px);
+}
+
+.career-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(32px, 6vw, 96px);
+}
+
+/* coluna fixa com o ano */
+
+.career-aside {
+  position: sticky;
+  top: 120px;
+  align-self: start;
+  display: grid;
+  gap: 20px;
+}
+
+.career .odometer {
+  font-family: var(--display);
+  font-weight: 800;
+  font-variation-settings: 'wdth' 140;
+  font-size: clamp(4rem, 10vw, 9rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.career-now {
+  display: grid;
+  gap: 6px;
+  animation: career-now-in 0.5s var(--ease-out);
+}
+
+@keyframes career-now-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.career-now strong {
+  font: 600 1.25rem/1.2 var(--body);
+}
+
+.career-now > span:last-child {
+  font: 400 13px/1.4 var(--mono);
+  color: var(--muted);
+}
+
+.career-kind {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.career-kind--atual {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.career-kind--atual::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* lista com a linha do tempo */
+
+.career-track {
+  position: relative;
+}
+
+.career-list {
+  margin: 0;
+  padding: 0 0 0 36px;
+  list-style: none;
+}
+
+.career-track::before,
+.career-line-fill {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+}
+
+.career-track::before {
+  background: var(--line);
+}
+
+.career-line-fill {
+  display: block;
+  background: var(--accent);
+  transform-origin: top;
+}
+
+.career-item {
+  position: relative;
+  padding-block: clamp(28px, 7vh, 72px);
+  opacity: 0.32;
+  transition: opacity 0.4s;
+}
+
+.career-item:first-child {
+  padding-top: 0;
+}
+
+.career-item.is-active {
+  opacity: 1;
+}
+
+.career-item::before {
+  content: '';
+  position: absolute;
+  left: -36px;
+  top: calc(clamp(28px, 7vh, 72px) + 4px);
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  background: var(--ground);
+  transition: background-color 0.3s;
+}
+
+.career-item:first-child::before {
+  top: 4px;
+}
+
+.career-item.is-active::before {
+  background: var(--accent);
+}
+
+.career-period {
+  margin: 0 0 10px;
+  font: 400 13px/1.4 var(--mono);
+  color: var(--muted);
+}
+
+.career-item h3 {
+  margin: 0 0 14px;
+  font-family: var(--display);
+  font-weight: 800;
+  font-variation-settings: 'wdth' 105;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.career-body {
+  max-width: 52ch;
+  margin: 0;
+  color: var(--muted);
+}
+
+.career-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 40px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.career-metrics li {
+  display: grid;
+  gap: 4px;
+}
+
+.metric-value {
+  font-family: var(--display);
+  font-weight: 800;
+  font-variation-settings: 'wdth' 130;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  line-height: 1;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-label {
+  max-width: 22ch;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* formação */
+
+.career-education {
+  margin-top: clamp(56px, 8vw, 104px);
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.career-education .section-label {
+  margin-bottom: 20px;
+}
+
+.career-education ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.career-education li {
+  padding: 9px 14px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  font-size: 14px;
+}
+
+.career-education li:first-child {
+  border-color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 820px) {
+  .career-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  .career-aside {
+    top: calc(64px + env(safe-area-inset-top, 0px));
+    z-index: 2;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 16px;
+    padding-block: 12px;
+    background: var(--ground);
+    border-bottom: 1px solid var(--line);
+  }
+  .career .odometer {
+    font-size: 3rem;
+  }
+  .career-now strong {
+    font-size: 1rem;
+  }
+}

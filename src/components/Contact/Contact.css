@@ -1,0 +1,97 @@
+.contact {
+  padding-bottom: clamp(56px, 8vw, 96px);
+}
+
+.contact-title {
+  max-width: 14ch;
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 800;
+  font-variation-settings: 'wdth' 118;
+  font-size: clamp(2.6rem, 7.6vw, 7rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 20px;
+  margin-top: clamp(40px, 6vw, 64px);
+}
+
+.contact-email {
+  font-family: var(--display);
+  font-weight: 700;
+  font-variation-settings: 'wdth' 100;
+  font-size: clamp(1.25rem, 3vw, 2.2rem);
+  color: var(--accent);
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat;
+  transition: background-size 0.35s var(--ease-out);
+  overflow-wrap: anywhere;
+}
+
+.contact-email:hover {
+  background-size: 100% 2px;
+}
+
+.contact-copy {
+  padding: 12px 18px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: transparent;
+  font: 500 13px/1 var(--mono);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.contact-copy:hover {
+  border-color: var(--ink);
+}
+
+.contact-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin: clamp(48px, 7vw, 80px) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.contact-links a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 4px;
+  border-bottom: 1px solid var(--line);
+  font: 600 1.125rem/1 var(--body);
+  text-decoration: none;
+  transition: color 0.2s, padding 0.3s var(--ease-out);
+}
+
+.contact-links a:hover {
+  color: var(--accent);
+  padding-inline: 12px;
+}
+
+.contact-links li + li a {
+  border-left: 1px solid var(--line);
+  padding-left: 20px;
+}
+
+.contact-links li + li a:hover {
+  padding-left: 28px;
+}
+
+@media (max-width: 640px) {
+  .contact-links li + li a {
+    border-left: 0;
+    padding-left: 4px;
+  }
+  .contact-links li + li a:hover {
+    padding-left: 12px;
+  }
+}

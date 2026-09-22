@@ -1,0 +1,32 @@
+.footer {
+  border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding-block: 28px;
+  font: 400 13px/1.4 var(--mono);
+  color: var(--muted);
+}
+
+.footer-inner p {
+  margin: 0;
+}
+
+.footer-log span {
+  color: var(--accent);
+}
+
+.footer-top {
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.footer-top:hover {
+  color: var(--accent);
+}

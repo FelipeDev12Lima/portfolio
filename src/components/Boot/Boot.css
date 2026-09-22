@@ -1,0 +1,69 @@
+.boot {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-content: center;
+  gap: 16px;
+  padding-inline: var(--gutter);
+  background: var(--ground);
+  font: 400 14px/1.8 var(--mono);
+  color: var(--muted);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
+
+.boot.is-leaving {
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none;
+}
+
+.boot-log {
+  min-width: min(340px, 100%);
+  min-height: calc(5 * 1.8em);
+}
+
+.boot-log p {
+  margin: 0;
+}
+
+.boot-prompt,
+.boot-ok {
+  color: var(--accent);
+}
+
+.boot-caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  margin-left: 4px;
+  vertical-align: -0.15em;
+  background: var(--ink);
+  animation: boot-caret 0.8s steps(1) infinite;
+}
+
+@keyframes boot-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.boot-bar {
+  height: 2px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.boot-bar span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.25s var(--ease-out);
+}
+
+.boot-pct {
+  margin: 0;
+  font-size: 12px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}

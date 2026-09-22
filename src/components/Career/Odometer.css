@@ -1,0 +1,23 @@
+.odometer {
+  display: inline-flex;
+  line-height: 1;
+}
+
+.odometer-col {
+  display: block;
+  height: 1em;
+  overflow: hidden;
+}
+
+.odometer-strip {
+  display: flex;
+  flex-direction: column;
+}
+
+.odometer-strip > span {
+  display: block;
+  height: 1em;
+  line-height: 1em;
+  text-align: center;
+}
+

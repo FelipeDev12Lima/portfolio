@@ -1,0 +1,53 @@
+/* Identidade aprovada na proposta v3: cinza de estúdio + cobalto. */
+:root {
+  --ground: #eceef1;
+  --surface: #f7f8fa;
+  --ink: #15171c;
+  --muted: #5d6270;
+  --line: #d3d8e0;
+  --accent: #2b4bff;
+  --accent-ink: #ffffff;
+  --avatar-bg: #d9dfff;
+  --circuit: #2b4bff;
+  --shadow-figure: rgba(10, 14, 40, 0.22);
+
+  --display: 'Anybody', 'Arial Narrow', system-ui, sans-serif;
+  --body: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1200px;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --ground: #101216;
+    --surface: #181b21;
+    --ink: #e8eaee;
+    --muted: #9ca1ad;
+    --line: #2a2e36;
+    --accent: #7087ff;
+    --accent-ink: #0b0d12;
+    --avatar-bg: #1c2442;
+    --circuit: #7087ff;
+    --shadow-figure: rgba(0, 0, 0, 0.45);
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --ground: #101216;
+  --surface: #181b21;
+  --ink: #e8eaee;
+  --muted: #9ca1ad;
+  --line: #2a2e36;
+  --accent: #7087ff;
+  --accent-ink: #0b0d12;
+  --avatar-bg: #1c2442;
+  --circuit: #7087ff;
+  --shadow-figure: rgba(0, 0, 0, 0.45);
+}
