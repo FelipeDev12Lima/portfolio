@@ -35,4 +35,14 @@ export function useSmoothScroll(active: boolean) {
     if (active) lenis.start()
     else lenis.stop()
   }, [active, reduced])
+
+  // Carregar a página direto num link com #âncora (ex.: vindo de outra rota) não rola sozinho
+  useEffect(() => {
+    if (!active || !location.hash) return
+    const target = document.querySelector(location.hash)
+    if (!target) return
+    const lenis = lenisRef.current
+    if (lenis) lenis.scrollTo(target as HTMLElement, { offset: NAV_OFFSET, immediate: reduced })
+    else target.scrollIntoView()
+  }, [active, reduced])
 }

@@ -67,6 +67,14 @@
   color: var(--ink);
 }
 
+.navbar-links a.is-active {
+  color: var(--ink);
+}
+
+.navbar-links a.is-active::after {
+  transform: scaleX(1);
+}
+
 .navbar-links a:hover::after {
   transform: scaleX(1);
 }

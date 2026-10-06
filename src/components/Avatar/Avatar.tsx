@@ -10,7 +10,9 @@ const BLINK_MS = 130
 const WINK_MS = 380
 const BUBBLE_MS = 2600
 
-export function Avatar() {
+type Props = { lines?: readonly string[] }
+
+export function Avatar({ lines: customLines }: Props = {}) {
   const rootRef = useRef<HTMLDivElement>(null)
   const figureRef = useRef<HTMLDivElement>(null)
   const discRef = useRef<HTMLDivElement>(null)
@@ -73,7 +75,7 @@ export function Avatar() {
   }, [])
 
   const poke = () => {
-    const lines = profile.avatarLines
+    const lines = customLines ?? profile.avatarLines
     setLine(lines[lineIndex.current++ % lines.length])
     setHopKey((k) => k + 1)
     setWinking(true)

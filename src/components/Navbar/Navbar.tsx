@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { CSSProperties } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { navItems, profile } from '../../data/profile'
 import { useTheme } from '../../hooks/useTheme'
 import './Navbar.css'
@@ -7,6 +8,10 @@ import './Navbar.css'
 export function Navbar() {
   const { theme, toggle } = useTheme()
   const [open, setOpen] = useState(false)
+  const { pathname } = useLocation()
+  const onHome = pathname === '/'
+  // Fora da home, uma âncora como "#sobre" não existe na página atual: aponta para a home.
+  const anchorHref = (id: string) => (onHome ? `#${id}` : `/#${id}`)
   const nextLabel = theme === 'dark' ? 'Mudar para tema claro' : 'Mudar para tema escuro'
 
   // Esc fecha o menu do celular
@@ -20,7 +25,7 @@ export function Navbar() {
   return (
     <header className={`navbar${open ? ' is-open' : ''}`}>
       <div className="container navbar-inner">
-        <a href="#inicio" className="navbar-logo" onClick={() => setOpen(false)}>
+        <a href={anchorHref('inicio')} className="navbar-logo" onClick={() => setOpen(false)}>
           {profile.handle}
           <span className="navbar-dot" aria-hidden="true" />
         </a>
@@ -29,11 +34,20 @@ export function Navbar() {
           <ul className="navbar-links">
             {navItems.map((item, i) => (
               <li key={item.id} style={{ '--i': i } as CSSProperties}>
-                <a href={`#${item.id}`} onClick={() => setOpen(false)}>
+                <a href={anchorHref(item.id)} onClick={() => setOpen(false)}>
                   {item.label}
                 </a>
               </li>
             ))}
+            <li style={{ '--i': navItems.length } as CSSProperties}>
+              <Link
+                to="/jornada"
+                className={pathname === '/jornada' ? 'is-active' : undefined}
+                onClick={() => setOpen(false)}
+              >
+                Jornada
+              </Link>
+            </li>
           </ul>
         </nav>
 
@@ -50,7 +64,7 @@ export function Navbar() {
               )}
             </svg>
           </button>
-          <a href="#contato" className="navbar-cta" onClick={() => setOpen(false)}>
+          <a href={anchorHref('contato')} className="navbar-cta" onClick={() => setOpen(false)}>
             Falar comigo
           </a>
           <button
