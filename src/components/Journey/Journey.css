@@ -102,10 +102,25 @@
 }
 
 .journey-chapter-paragraph {
-  max-width: 62ch;
-  margin: 0 0 18px;
+  position: relative;
+  max-width: 46ch;
+  margin: 0 0 16px;
+  padding-left: 24px;
+  font-family: var(--mono);
   font-size: 1.05rem;
-  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.journey-chapter-paragraph::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 14px;
+  height: 2px;
+  background: var(--accent);
 }
 
 .journey-chapter-paragraph:last-child {
@@ -248,9 +263,25 @@
 }
 
 .journey-closing-paragraph {
-  margin: 0 0 18px;
+  position: relative;
+  max-width: 46ch;
+  margin: 0 0 16px;
+  padding-left: 24px;
+  font-family: var(--mono);
   font-size: 1.05rem;
-  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.journey-closing-paragraph::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 14px;
+  height: 2px;
+  background: var(--accent);
 }
 
 .journey-closing-quote {
