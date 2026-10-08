@@ -14,9 +14,16 @@ function bootAlreadySeen() {
   }
 }
 
+export type LayoutContext = {
+  ready: boolean
+  presenting: boolean
+  setPresenting: (value: boolean) => void
+}
+
 /** Casca comum a todas as rotas: boot, tema, navbar, scroll suave e rodapé. */
 export function Layout() {
   const [booted, setBooted] = useState(bootAlreadySeen)
+  const [presenting, setPresenting] = useState(false)
 
   const finishBoot = useCallback(() => {
     try {
@@ -34,12 +41,23 @@ export function Layout() {
     document.fonts.ready.then(() => ScrollTrigger.refresh())
   }, [])
 
+  // Saída do modo apresentação pelo Esc do navegador também precisa atualizar a navbar/footer
+  useEffect(() => {
+    const onFullscreenChange = () => {
+      if (!document.fullscreenElement) setPresenting(false)
+    }
+    document.addEventListener('fullscreenchange', onFullscreenChange)
+    return () => document.removeEventListener('fullscreenchange', onFullscreenChange)
+  }, [])
+
+  const context: LayoutContext = { ready: booted, presenting, setPresenting }
+
   return (
     <>
       {!booted && <Boot onDone={finishBoot} />}
-      <Navbar />
-      <Outlet context={{ ready: booted }} />
-      <Footer />
+      {!presenting && <Navbar />}
+      <Outlet context={context} />
+      {!presenting && <Footer />}
     </>
   )
 }

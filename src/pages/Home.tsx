@@ -6,8 +6,7 @@ import { Hero } from '../components/Hero/Hero'
 import { Projects } from '../components/Projects/Projects'
 import { Services } from '../components/Services/Services'
 import { Stack } from '../components/Stack/Stack'
-
-type LayoutContext = { ready: boolean }
+import type { LayoutContext } from '../components/Layout/Layout'
 
 export default function Home() {
   const { ready } = useOutletContext<LayoutContext>()

@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { useOutletContext } from 'react-router-dom'
 import { Avatar } from '../Avatar/Avatar'
 import { JourneyChapter } from './JourneyChapter'
 import { JourneyClosing } from './JourneyClosing'
@@ -6,10 +7,26 @@ import { JourneyMentors } from './JourneyMentors'
 import { JourneyTurningPoint } from './JourneyTurningPoint'
 import { chapters, jornada, learning, opportunity, preparation, turningPoint } from '../../data/jornada'
 import { gsap, MOTION_OK, SplitText, useGSAP } from '../../lib/gsap'
+import type { LayoutContext } from '../Layout/Layout'
 import './Journey.css'
 
 export function Journey() {
   const root = useRef<HTMLElement>(null)
+  const { presenting, setPresenting } = useOutletContext<LayoutContext>()
+
+  const togglePresenting = async () => {
+    if (presenting) {
+      if (document.fullscreenElement) await document.exitFullscreen()
+      setPresenting(false)
+      return
+    }
+    try {
+      await document.documentElement.requestFullscreen()
+    } catch {
+      // navegador recusou tela cheia (ex.: sem gesto do usuário): segue só escondendo navbar/footer
+    }
+    setPresenting(true)
+  }
 
   useGSAP(
     () => {
@@ -42,6 +59,36 @@ export function Journey() {
 
   return (
     <main ref={root} id="jornada-topo" className="journey">
+      <button
+        type="button"
+        className="journey-present-toggle"
+        onClick={togglePresenting}
+        aria-label={presenting ? 'Sair do modo apresentação' : 'Entrar em modo apresentação'}
+        title={presenting ? 'Sair do modo apresentação' : 'Modo apresentação'}
+      >
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          {presenting ? (
+            <path
+              d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          ) : (
+            <path
+              d="M3 9V3h6M15 3h6v6M21 15v6h-6M9 21H3v-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          )}
+        </svg>
+      </button>
+
       <section className="journey-hero container">
         <div className="journey-hero-copy">
           <p className="journey-hero-eyebrow">{jornada.kicker}</p>
