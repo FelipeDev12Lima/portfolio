@@ -79,4 +79,5 @@ export const closing = {
   paragraphs: ['Ambiente e pessoas já conhecidos', 'Contribuindo desde o início', 'Projetos, frentes e treinamentos'],
   quote: 'Exatamente na área que sonhava.',
   footnote: 'Carreira ON: de vontade a plano real.',
+  thanks: 'Obrigado por acompanhar.',
 } as const

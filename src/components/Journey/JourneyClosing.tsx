@@ -35,7 +35,7 @@ export function JourneyClosing() {
           },
         )
 
-        gsap.from('.journey-closing-quote, .journey-closing-footnote, .journey-closing-cta', {
+        gsap.from('.journey-closing-quote, .journey-closing-footnote', {
           opacity: 0,
           y: 24,
           stagger: 0.1,
@@ -43,6 +43,50 @@ export function JourneyClosing() {
           ease: 'power3.out',
           scrollTrigger: { trigger: '.journey-closing-quote', start: 'top 85%', toggleActions: 'play none none reverse' },
         })
+
+        // Agradecimento final: letras entram e ficam "respirando" devagar, sem ser um botão
+        SplitText.create('.journey-thanks-text', {
+          type: 'chars',
+          autoSplit: true,
+          onSplit: (self) => {
+            gsap.set(self.chars, { yPercent: 60, opacity: 0 })
+            gsap
+              .timeline({
+                scrollTrigger: { trigger: '.journey-thanks', start: 'top 85%', toggleActions: 'play none none reverse' },
+              })
+              .to(self.chars, {
+                yPercent: 0,
+                opacity: 1,
+                stagger: 0.035,
+                duration: 0.7,
+                ease: 'back.out(1.6)',
+              })
+              .to(
+                self.chars,
+                {
+                  y: () => gsap.utils.random(-5, 5),
+                  duration: () => gsap.utils.random(1.8, 2.6),
+                  ease: 'sine.inOut',
+                  repeat: -1,
+                  yoyo: true,
+                  stagger: { each: 0.09, from: 'random' },
+                },
+                '-=0.15',
+              )
+          },
+        })
+
+        const underline = root.current!.querySelector<SVGPathElement>('.journey-thanks-underline path')
+        if (underline) {
+          const length = underline.getTotalLength()
+          gsap.set(underline, { strokeDasharray: length, strokeDashoffset: length })
+          gsap.to(underline, {
+            strokeDashoffset: 0,
+            duration: 1,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: '.journey-thanks', start: 'top 80%', toggleActions: 'play none none reverse' },
+          })
+        }
       })
     },
     { scope: root },
@@ -64,9 +108,18 @@ export function JourneyClosing() {
       <p className="journey-closing-quote">&ldquo;{closing.quote}&rdquo;</p>
       <p className="journey-closing-footnote">{closing.footnote}</p>
 
-      <a href="/#contato" className="journey-closing-cta btn btn--primary">
-        Falar comigo
-      </a>
+      <div className="journey-thanks">
+        <p className="journey-thanks-text">{closing.thanks}</p>
+        <svg className="journey-thanks-underline" viewBox="0 0 240 20" aria-hidden="true">
+          <path
+            d="M4 12 C 40 2, 70 18, 110 8 S 180 0, 236 10"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+        </svg>
+      </div>
     </div>
   )
 }

@@ -324,6 +324,28 @@
   color: var(--muted);
 }
 
-.journey-closing-cta {
+.journey-thanks {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
   margin-top: clamp(32px, 5vw, 48px);
+}
+
+.journey-thanks-text {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-variation-settings: 'wdth' 112;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  letter-spacing: -0.01em;
+  color: var(--accent);
+}
+
+.journey-thanks-underline {
+  display: block;
+  width: clamp(160px, 20vw, 240px);
+  height: auto;
+  margin-left: 4px;
+  color: var(--accent);
 }
