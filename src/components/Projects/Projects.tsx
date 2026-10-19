@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { moreProjects, projects } from '../../data/profile'
 import { gsap, MOTION_OK, ScrollTrigger, SplitText, useGSAP } from '../../lib/gsap'
+import { lenisStore } from '../../hooks/useSmoothScroll'
 import { Odometer } from '../Career/Odometer'
 import './Projects.css'
 
@@ -10,9 +11,28 @@ const pad = (n: number) => String(n).padStart(2, '0')
 export function Projects() {
   const root = useRef<HTMLElement>(null)
   const [active, setActive] = useState(0)
+  const cardTriggers = useRef<ScrollTrigger[]>([])
+  const pinTrigger = useRef<ScrollTrigger | null>(null)
+  const containerAnim = useRef<gsap.core.Tween | null>(null)
+
+  const goTo = (index: number) => {
+    const clamped = Math.max(0, Math.min(projects.length - 1, index))
+    const trigger = cardTriggers.current[clamped]
+    if (!trigger) return
+    // Com containerAnimation, trigger.start/end são tempo (s) ao longo da tween da trilha,
+    // não pixels da página: normaliza pela duração e mapeia para o intervalo real do pin.
+    const pin = pinTrigger.current
+    const anim = containerAnim.current
+    const y = pin && anim ? pin.start + (trigger.start / anim.duration()) * (pin.end - pin.start) + 1 : trigger.start + 1
+    if (lenisStore.current) lenisStore.current.scrollTo(y, { duration: 1 })
+    else window.scrollTo({ top: y, behavior: 'smooth' })
+  }
 
   useGSAP(
     () => {
+      cardTriggers.current = []
+      pinTrigger.current = null
+      containerAnim.current = null
       const mm = gsap.matchMedia()
       mm.add({ wide: '(min-width: 821px)', motion: MOTION_OK }, (ctx) => {
         const { wide, motion } = ctx.conditions as { wide: boolean; motion: boolean }
@@ -40,6 +60,8 @@ export function Projects() {
               },
             },
           })
+          pinTrigger.current = containerAnimation.scrollTrigger ?? null
+          containerAnim.current = containerAnimation
         }
 
         if (motion) {
@@ -78,7 +100,7 @@ export function Projects() {
                 { yPercent: 0, stagger: 0.015, duration: 0.6, ease: 'power3.out', paused: true, immediateRender: false },
               )
             : null
-          ScrollTrigger.create({
+          cardTriggers.current[i] = ScrollTrigger.create({
             trigger: card,
             containerAnimation,
             start: horizontal ? 'left center' : 'top center',
@@ -98,13 +120,39 @@ export function Projects() {
   return (
     <section ref={root} id="projetos" className="projects">
       <div className="projects-pin">
-        <div className="container projects-hud" aria-hidden="true">
-          <p className="section-label">Projetos</p>
-          <div className="projects-counter">
+        <div className="container projects-hud">
+          <p className="section-label" aria-hidden="true">
+            Projetos
+          </p>
+          <div className="projects-counter" aria-hidden="true">
             <Odometer value={active + 1} pad={2} className="projects-odometer" />
             <span>/ {pad(projects.length)}</span>
           </div>
-          <div className="projects-progress">
+          <div className="projects-nav">
+            <button
+              type="button"
+              className="projects-arrow"
+              onClick={() => goTo(active - 1)}
+              disabled={active === 0}
+              aria-label="Projeto anterior"
+            >
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              className="projects-arrow"
+              onClick={() => goTo(active + 1)}
+              disabled={active === projects.length - 1}
+              aria-label="Próximo projeto"
+            >
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          </div>
+          <div className="projects-progress" aria-hidden="true">
             <span />
           </div>
         </div>

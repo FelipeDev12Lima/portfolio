@@ -7,6 +7,12 @@ import { useReducedMotion } from './useReducedMotion'
 const NAV_OFFSET = -72
 
 /**
+ * Referência global à instância do Lenis ativa, para outros componentes
+ * (ex.: navegação por setas) rolarem a página sem brigar com o lerp do Lenis.
+ */
+export const lenisStore: { current: Lenis | null } = { current: null }
+
+/**
  * Rolagem suave (Lenis) sincronizada com o ScrollTrigger.
  * `active = false` trava a rolagem (usado durante o boot).
  */
@@ -18,6 +24,7 @@ export function useSmoothScroll(active: boolean) {
     if (reduced) return
     const lenis = new Lenis({ anchors: { offset: NAV_OFFSET } })
     lenisRef.current = lenis
+    lenisStore.current = lenis
     lenis.on('scroll', ScrollTrigger.update)
     const tick = (time: number) => lenis.raf(time * 1000)
     gsap.ticker.add(tick)
@@ -26,6 +33,7 @@ export function useSmoothScroll(active: boolean) {
       gsap.ticker.remove(tick)
       lenis.destroy()
       lenisRef.current = null
+      lenisStore.current = null
     }
   }, [reduced])
 

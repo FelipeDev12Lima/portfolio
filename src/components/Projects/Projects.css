@@ -49,6 +49,35 @@
   transform-origin: left;
 }
 
+/* --- setas de navegação (clique avança o cartão ativo) --- */
+
+.projects-nav {
+  display: flex;
+  gap: 10px;
+}
+
+.projects-arrow {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.2s, opacity 0.2s;
+}
+
+.projects-arrow:hover:not(:disabled) {
+  border-color: var(--ink);
+}
+
+.projects-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
 /* --- trilha (padrão: vertical) --- */
 
 .projects-track {
