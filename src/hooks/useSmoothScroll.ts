@@ -36,7 +36,7 @@ export function useSmoothScroll(active: boolean) {
     else lenis.stop()
   }, [active, reduced])
 
-  // Carregar a página direto num link com #âncora (ex.: vindo de outra rota) não rola sozinho
+  // Carregar a página direto numa URL com #âncora não rola sozinho
   useEffect(() => {
     if (!active || !location.hash) return
     const target = document.querySelector(location.hash)

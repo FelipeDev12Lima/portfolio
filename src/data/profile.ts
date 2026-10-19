@@ -176,7 +176,7 @@ export const moreProjects = [
   { title: 'Servidor MCP de nomenclatura', note: 'Padrão de nomes para recursos Azure, consultável por agentes de IA.', tag: 'IA' },
   { title: 'E-commerce integrado ao ERP', note: 'Estoque, pedidos e faturamento sincronizados automaticamente.', tag: 'Web' },
   { title: 'Dashboard executivo', note: 'Painel sobre planilhas com atualização automática e exportação em PDF.', tag: 'Dados' },
-  { title: 'fefs.treino', note: 'App de treino que funciona offline, com timer de descanso e histórico de carga.', tag: 'Pessoal' },
+  { title: 'App de treino pessoal', note: 'App de treino que funciona offline, com timer de descanso e histórico de carga.', tag: 'Pessoal' },
 ] as const
 
 export const stack = [
